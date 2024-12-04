@@ -37,5 +37,3 @@ export async function POST(req: Request) {
         );
     }
 }
-
-// NOTHING JUST TEST COMMIT HAHAHAHA

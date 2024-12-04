@@ -1,0 +1,11 @@
+@media screen and (min-width: 768px) {
+    .navigation-sidebar {
+        display: flex !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .navigation-sidebar {
+        display: none !important;
+    }
+}

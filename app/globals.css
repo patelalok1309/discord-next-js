@@ -76,3 +76,15 @@ body {
         @apply bg-background text-foreground;
     }
 }
+
+@media screen and (min-width: 768px) {
+    .server-sidebar {
+        display: flex !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .server-sidebar {
+        display: none !important;
+    }
+}

@@ -17,8 +17,10 @@ import {
     Trash,
     UserPlus,
     Users,
+    X,
 } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
+import { useState } from "react";
 
 interface ServerHeaderProps {
     server: ServerWithMembersWithProfiles;
@@ -28,15 +30,25 @@ interface ServerHeaderProps {
 const ServerHeader = ({ server, role }: ServerHeaderProps) => {
     const { onOpen } = useModal();
 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const isAdmin = role === MemberRole.ADMIN;
     const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
+    const handleOpen = (isOpen: boolean) => {
+        setIsMenuOpen((prev) => !prev);
+    };
+
     return (
-        <DropdownMenu>
+        <DropdownMenu onOpenChange={handleOpen} open={isMenuOpen}>
             <DropdownMenuTrigger className="focus-outline-none" asChild>
                 <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
                     {server.name}
-                    <ChevronDown className="w-5 h-5 ml-auto" />
+                    {isMenuOpen ? (
+                        <X className="w-5 h-5 ml-auto" />
+                    ) : (
+                        <ChevronDown className="w-5 h-5 ml-auto" />
+                    )}
                 </button>
             </DropdownMenuTrigger>
 
@@ -60,7 +72,10 @@ const ServerHeader = ({ server, role }: ServerHeaderProps) => {
                     </DropdownMenuItem>
                 )}
                 {isAdmin && (
-                    <DropdownMenuItem className="px-3 py-2 text-sm cursor-pointer">
+                    <DropdownMenuItem
+                        onClick={() => onOpen("members", { server })}
+                        className="px-3 py-2 text-sm cursor-pointer"
+                    >
                         Manage members
                         <Users className="w-4 h-4 ml-auto" />
                     </DropdownMenuItem>

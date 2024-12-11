@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import qs from "query-string";
@@ -51,7 +51,6 @@ const formSchema = z.object({
 export const EditChannelModal = () => {
     const { data, isOpen, onClose, type } = useModal();
     const router = useRouter();
-    const params = useParams();
 
     const isModalOpen = isOpen && type === "editChannel";
     const { server, channel } = data;

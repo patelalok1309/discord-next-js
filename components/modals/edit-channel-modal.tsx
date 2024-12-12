@@ -64,7 +64,6 @@ export const EditChannelModal = () => {
     });
 
     useEffect(() => {
-        console.log("channel", channel);
         if (channel) {
             form.setValue("name", channel.name);
             form.setValue("type", channel.type);

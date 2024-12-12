@@ -2,13 +2,13 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
-interface InviteCodePageProps {
-    params: {
-        inviteCode: string;
-    };
-}
+// interface InviteCodePageProps {
+//     params: {
+//         inviteCode: string;
+//     };
+// }
 
-const InviteCodePage = async ({ params }: InviteCodePageProps) => {
+const InviteCodePage = async ({ params } : any ) => {
     const profile = await currentProfile();
 
     if (!profile) {

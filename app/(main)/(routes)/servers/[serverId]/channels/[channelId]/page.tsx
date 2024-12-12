@@ -4,15 +4,18 @@ import { db } from "@/lib/db";
 import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-interface ChannelIdPageProps {
+interface PageProps {
     params: {
         channelId: string;
         serverId: string;
     };
 }
 
+
+interface ChannelIdPageProps extends PageProps {}
+
 const channelId = async ({ params }: ChannelIdPageProps) => {
-    const { channelId, serverId } = params;
+    const { channelId, serverId } = await params;
     const profile = await currentProfile();
 
     if (!profile) {

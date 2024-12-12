@@ -55,7 +55,9 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
                     rel="noopener noreferrer"
                     className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
                 >
-                    {pdfUrl}
+                    <p className="text-center max-w-[400px] truncate break-words">
+                        {pdfUrl}
+                    </p>
                 </a>
                 <button
                     onClick={handleRemove}
@@ -66,7 +68,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
                 </button>
             </div>
         );
-    }       
+    }
 
     return (
         <UploadDropzone
@@ -83,4 +85,3 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
         />
     );
 };
-

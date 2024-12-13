@@ -1,10 +1,12 @@
 "use client";
 
-import { Member } from "@prisma/client";
-import React from "react";
+import { Member, Message, Profile } from "@prisma/client";
+import React, { Fragment } from "react";
 import ChatWelcome from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
-import { Loader2, ServerCrash } from "lucide-react";
+import { Loader2, MessageSquare, ServerCrash } from "lucide-react";
+import ChatItem from "./chat-item";
+import { format } from "date-fns";
 
 interface ChatMessagesProps {
     name: string;
@@ -17,6 +19,14 @@ interface ChatMessagesProps {
     paramValue: string;
     type: "channel" | "conversation";
 }
+
+type MessageWithMemberWithProfile = Message & {
+    member: Member & {
+        profile: Profile;
+    };
+};
+
+const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
 const ChatMessages: React.FC<ChatMessagesProps> = ({
     name,
@@ -39,8 +49,6 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
             paramValue,
         });
 
-    console.log("status", status);
-
     if (status === "pending") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
@@ -51,11 +59,42 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
             </div>
         );
     }
-    
+
     return (
         <div className="flex-1 flex flex-col overflow-y-auto py-4">
             <div className="flex-1" />
             <ChatWelcome type={type} name={name} />
+            <div className="flex flex-col-reverse mt-auto">
+                {data?.pages?.map((group, i) => (
+                    <Fragment key={i}>
+                        {group.items.map(
+                            (message: MessageWithMemberWithProfile) => {
+                                return (
+                                    <ChatItem
+                                        key={message.id}
+                                        id={message.id}
+                                        currentMember={member}
+                                        member={message.member}
+                                        content={message.content}
+                                        fileUrl={message.fileUrl}
+                                        deleted={message.deleted}
+                                        timestamp={format(
+                                            new Date(message.createdAt),
+                                            DATE_FORMAT
+                                        )}
+                                        isUpdated={
+                                            message.createdAt !==
+                                            message.updatedAt
+                                        }
+                                        socketUrl={socketUrl}
+                                        socketQuery={socketQuery}
+                                    />
+                                );
+                            }
+                        )}
+                    </Fragment>
+                ))}
+            </div>
         </div>
     );
 };

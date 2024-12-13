@@ -24,7 +24,7 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 
     const fileType = value.split(".").pop();
 
-    if (value && fileType !== "pdf") {
+    if (value && !isPdf) {
         return (
             <div className="relative h-20 w-20">
                 <Image
@@ -45,18 +45,18 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
         );
     }
 
-    if (isPdf && pdfUrl) {
+    if (isPdf && value) {
         return (
             <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
                 <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
                 <a
-                    href={pdfUrl}
+                    href={value}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
                 >
                     <p className="text-center max-w-[400px] truncate break-words">
-                        {pdfUrl}
+                        {value}
                     </p>
                 </a>
                 <button
@@ -74,12 +74,11 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
         <UploadDropzone
             endpoint={endpoint}
             onClientUploadComplete={(res) => {
+                console.log("File uploaded:", res);
                 if (res?.[0].type === "application/pdf") {
                     setIsPdf(true);
-                    setPdfUrl(res[0].url);
-                } else {
-                    onChange(res?.[0].url);
                 }
+                onChange(res?.[0].url);
             }}
             onUploadError={(err: Error) => console.log(err)}
         />

@@ -19,9 +19,7 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
-    fileUrl: z.string().min(1, {
-        message: "Attachment is required",
-    }),
+    fileUrl: z.string(),
 });
 
 export const MessageFileModal = () => {
@@ -41,14 +39,18 @@ export const MessageFileModal = () => {
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        console.log("onsubmit", values);
         try {
             const url = qs.stringifyUrl({
                 url: apiUrl || "",
                 query: query,
             });
 
-            const res = await axios.post(url, { ...values, content: values.fileUrl });
-            console.log("response" , res)
+            const res = await axios.post(url, {
+                ...values,
+                content: values.fileUrl,
+            });
+            console.log("response", res);
             form.reset();
             router.refresh();
             handleClose();
@@ -99,12 +101,13 @@ export const MessageFileModal = () => {
                             </div>
 
                             <DialogFooter className="bg-gray-100 px-6 py-4">
-                                <Button
+                                <button
                                     disabled={isLoading}
-                                    variant={"primary"}
+                                    // variant={"primary"}
+                                    type="submit"  
                                 >
                                     Send
-                                </Button>
+                                </button>
                             </DialogFooter>
                         </div>
                     </form>

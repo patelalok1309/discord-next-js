@@ -30,7 +30,9 @@ export const useChatSocket = ({
         pusherClient.subscribe(channelId);
 
         const newMessageHandler = (message: MessageWithMemberWithProfile) => {
+            console.log("new message use-chat-socket", message);
             queryClient.setQueryData([queryKey], (oldData: any) => {
+                console.log("oldData", oldData);
                 if (!oldData || !oldData.pages || oldData.pages.length === 0) {
                     return {
                         pages: [
@@ -45,7 +47,7 @@ export const useChatSocket = ({
 
                 newData[0] = {
                     ...newData[0],
-                    items: [...newData[0].items, message],
+                    items: [message, ...newData[0].items],
                 };
 
                 return {
@@ -90,8 +92,9 @@ export const useChatSocket = ({
         return () => {
             pusherClient.unsubscribe(channelId);
             pusherClient.unbind(addKey, newMessageHandler);
+            pusherClient.unbind(updateKey, updateMessageHandler);
         };
-    }, [channelId, addKey]);
+    }, [channelId, addKey, queryClient, updateKey]);
 
     // useEffect(() => {
     //     console.log("socket inside useEffect", socket);

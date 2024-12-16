@@ -5,14 +5,14 @@ import { NextResponse } from "next/server";
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { channelId: string } }
+    params: Promise<{ channelId: string }>
 ) {
     try {
         const profile = await currentProfile();
         const { searchParams } = new URL(req.url);
 
         const serverId = searchParams.get("serverId");
-        const channelId = params?.channelId;
+        const channelId = (await params).channelId;
 
         if (!profile) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -88,8 +88,6 @@ export async function PATCH(
         const channelId = await params.channelId;
 
         const { name, type } = await req.json();
-
-        console.log("[channel Id]", channelId);
 
         if (!profile) {
             return new NextResponse("Unauthorized", { status: 401 });

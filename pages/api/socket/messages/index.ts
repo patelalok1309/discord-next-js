@@ -1,5 +1,6 @@
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { NextApiResponseServerIo } from "@/types";
 import { NextApiRequest } from "next";
 
@@ -55,7 +56,7 @@ export default async function handler(
             },
         });
 
-        if (!server) {
+        if (!channel) {
             return res.status(404).json({ error: "Channel not found" });
         }
 
@@ -85,7 +86,8 @@ export default async function handler(
 
         const channelKey = `chat:${channelId}:messages`;
 
-        res?.socket?.server?.io?.emit(channelKey, message);
+        await pusherServer.trigger(channelId, channelKey, message);
+
 
         return res.status(200).json(message);
     } catch (error) {

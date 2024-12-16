@@ -1,12 +1,14 @@
 "use client";
 
 import { Member, Message, Profile } from "@prisma/client";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import ChatWelcome from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { Loader2, MessageSquare, ServerCrash } from "lucide-react";
 import ChatItem from "./chat-item";
 import { format } from "date-fns";
+// import { useSocket } from "../providers/socket-provider";
+import { useChatSocket } from "@/hooks/use-chat-socket";
 
 interface ChatMessagesProps {
     name: string;
@@ -39,6 +41,8 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
     paramValue,
     type,
 }) => {
+    // const { socket } = useSocket();
+
     const queryKey = `chat:${chatId}`;
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
@@ -48,6 +52,13 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
             paramKey,
             paramValue,
         });
+
+    useChatSocket({
+        addKey: `chat:${chatId}:messages` as const,
+        updateKey: `chat:${chatId}:messages:update` as const,
+        queryKey,
+        channelId: chatId,
+    });
 
     if (status === "pending") {
         return (

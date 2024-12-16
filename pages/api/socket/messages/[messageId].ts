@@ -1,5 +1,6 @@
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { NextApiResponseServerIo } from "@/types";
 import { NextApiRequest } from "next";
 
@@ -132,7 +133,9 @@ export default async function handler(
 
         const updateKey = `chat:${channelId}:messages:update`;
 
-        res?.socket?.server?.io?.emit(updateKey, message);
+        await pusherServer.trigger(channelId, updateKey, message);
+
+        // res?.socket?.server?.io?.emit(updateKey, message);
 
         return res.status(200).json(message);
     } catch (error) {

@@ -52,7 +52,6 @@ function ServerSearch({ data }: ServerSearchProps) {
         id: string;
         type: "channel" | "member";
     }) => {
-        console.log("onClick", id, type);
         setOpen(false);
 
         if (type === "member") {

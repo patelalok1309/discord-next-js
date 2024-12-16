@@ -54,13 +54,12 @@ const ChatItem: React.FC<ChatItemProps> = ({
     socketQuery,
     socketUrl,
 }) => {
-    const fileType = fileUrl?.split(".").pop();
-    // console.log("fileType", fileType);
-
     const { onOpen } = useModal();
 
     const [isEditing, setIsEditing] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
+    const [fileType, setFileType] = useState<"image" | "pdf" | "unknown">(
+        "unknown"
+    );
 
     const isAdmin = currentMember.role === MemberRole.ADMIN;
     const isModerator = currentMember.role === MemberRole.MODERATOR;
@@ -76,6 +75,23 @@ const ChatItem: React.FC<ChatItemProps> = ({
             content: "",
         },
     });
+
+    useEffect(() => {
+        const fetchFileType = async () => {
+            const response = await axios.head(fileUrl || "");
+            const contentType = response.headers["content-type"];
+
+            if (contentType.startsWith("image/")) {
+                setFileType("image");
+            } else if (contentType === "application/pdf") {
+                setFileType("pdf");
+            }
+        };
+
+        if (fileUrl) {
+            fetchFileType();
+        }
+    }, [fileUrl]);
 
     useEffect(() => {
         form.reset({
@@ -231,10 +247,12 @@ const ChatItem: React.FC<ChatItemProps> = ({
                         <ActionTooltip label="Delete">
                             <Trash
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 transition"
-                                onClick={() => onOpen("deleteMessage", {
-                                    apiUrl : `${socketUrl}/${id}`,
-                                    query : socketQuery
-                                })}
+                                onClick={() =>
+                                    onOpen("deleteMessage", {
+                                        apiUrl: `${socketUrl}/${id}`,
+                                        query: socketQuery,
+                                    })
+                                }
                             />
                         </ActionTooltip>
                     </div>

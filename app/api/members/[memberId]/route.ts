@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
     req: Request,
-    { params }: { params: { memberId: string } }
+    params: Promise<{ memberId: string }>
 ) {
     try {
         const profile = await currentProfile();
@@ -21,7 +21,7 @@ export async function PATCH(
         if (!serverId) {
             return new NextResponse("Server id is required", { status: 400 });
         }
-        if (!params.memberId) {
+        if (!memberId) {
             return new NextResponse("Member id is required", { status: 400 });
         }
 
@@ -66,12 +66,12 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { memberId: string } }
+    params: Promise<{ memberId: string }>
 ) {
     try {
         const profile = await currentProfile();
         const { searchParams } = new URL(req.url);
-
+        const { memberId } = await params;
         const serverId = searchParams.get("serverId");
 
         if (!profile) {
@@ -81,7 +81,7 @@ export async function DELETE(
         if (!serverId) {
             return new NextResponse("server ID missing", { status: 400 });
         }
-        if (!params.memberId) {
+        if (!memberId) {
             return new NextResponse("Member ID missing", { status: 400 });
         }
 

@@ -74,7 +74,6 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
         <UploadDropzone
             endpoint={endpoint}
             onClientUploadComplete={(res) => {
-                console.log("File uploaded:", res);
                 if (res?.[0].type === "application/pdf") {
                     setIsPdf(true);
                 }

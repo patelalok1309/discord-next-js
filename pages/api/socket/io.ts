@@ -4,25 +4,29 @@ import { Server as ServerIO } from "socket.io";
 
 import { NextApiResponseServerIo } from "@/types";
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
+// export const config = {
+//     api: {
+//         bodyParser: false,
+//     },
+// };
 
-const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
-    if (!res.socket.server.io) {
-        const path = "/api/socket/io";
-        const httpServer: NetServer = res.socket.server as any;
+// const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
+//     if (!res.socket.server.io) {
+//         const path = "/api/socket/io";
+//         const httpServer: NetServer = res.socket.server as any;
 
-        const io = new ServerIO(httpServer, {
-            path: path,
-            addTrailingSlash: false,
-        });
-        res.socket.server.io = io;
-    }
+//         const io = new ServerIO(httpServer, {
+//             path: path,
+//             addTrailingSlash: false,
+//         });
 
-    res.end();
-};
+//         io.on("connection", () => {
+//             console.log("socket connected");
+//         });
+//         res.socket.server.io = io;
+//     }
 
-export default ioHandler;
+//     res.end();
+// };
+
+// export default ioHandler;

@@ -2,7 +2,7 @@
 
 import React, { Fragment, useRef, ElementRef } from "react";
 import { Member, Message, Profile } from "@prisma/client";
-import { Loader2 } from "lucide-react";
+import { Loader2, ServerCrash } from "lucide-react";
 import { format } from "date-fns";
 
 import ChatWelcome from "./chat-welcome";
@@ -88,7 +88,7 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
     if (status === "error") {
         return (
             <div className="flex flex-col flex-1 justify-center items-center">
-                <Loader2 className="w-7 h-7 text-zinc-500 animate-spin my-4" />
+                <ServerCrash className="w-7 h-7 text-zinc-500 my-4" />
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
                     Something went wrong!
                 </p>

@@ -15,15 +15,16 @@ interface MemberIdPageProps {
         memberId: string;
         serverId: string;
     }>;
-    searchParams: {
+    searchParams: Promise<{
         video?: boolean;
-    };
+    }>;
 }
 
 const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
     const profile = await currentProfile();
 
     const { serverId, memberId } = await params;
+    const { video } = await searchParams;
 
     if (!profile) {
         return RedirectToSignIn;
@@ -65,7 +66,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
                 serverId={serverId}
                 type="conversation"
             />
-            {!searchParams.video && (
+            {!video && (
                 <>
                     <ChatMessages
                         name={otherMember.profile.name}
@@ -91,7 +92,7 @@ const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
                 </>
             )}
 
-            {searchParams.video && (
+            {video && (
                 <MediaRoom chatId={conversation.id} video={true} audio={true} />
             )}
         </div>

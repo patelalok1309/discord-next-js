@@ -2,7 +2,7 @@
 
 import React, { Fragment, useRef, ElementRef } from "react";
 import { Member, Message, Profile } from "@prisma/client";
-import { Loader2, ServerCrash } from "lucide-react";
+import { ArrowUp, Loader2, ServerCrash } from "lucide-react";
 import { format } from "date-fns";
 
 import ChatWelcome from "./chat-welcome";
@@ -43,8 +43,6 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
     paramValue,
     type,
 }) => {
-    // const { socket } = useSocket();
-
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
@@ -114,9 +112,10 @@ const ChatMessages: React.FC<ChatMessagesProps> = ({
                     ) : (
                         <button
                             onClick={() => fetchNextPage()}
-                            className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition text-xs my-4"
+                            className="flex flex-row justify-center items-center text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition text-xs my-4"
                         >
                             Load previous messages
+                            <ArrowUp className="w- h-5 ml-2 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition text-xs" />
                         </button>
                     )}
                 </div>

@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
     req: Request,
-    params: Promise<{ memberId: string }>
+    { params }: { params: Promise<{ memberId: string }> }
 ) {
     try {
         const profile = await currentProfile();
@@ -93,7 +93,7 @@ export async function DELETE(
             data: {
                 members: {
                     deleteMany: {
-                        id: params.memberId,
+                        id: memberId,
                         profileId: {
                             not: profile.id,
                         },

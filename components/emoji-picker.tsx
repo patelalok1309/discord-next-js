@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { Smile } from "lucide-react";
 import { useTheme } from "next-themes";
+import { ActionTooltip } from "./action-tooltip";
 interface EmojiPickerProps {
     onChange: (value: string) => void;
 }
@@ -19,7 +20,9 @@ const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
     return (
         <Popover>
             <PopoverTrigger>
-                <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+                <ActionTooltip side="top" align="center" label="Emoji picker">
+                    <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+                </ActionTooltip>
             </PopoverTrigger>
             <PopoverContent
                 side="right"

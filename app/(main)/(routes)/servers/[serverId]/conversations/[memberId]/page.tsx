@@ -20,7 +20,7 @@ interface MemberIdPageProps {
     }>;
 }
 
-const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
+const MemberIdPage = async ({ params , searchParams }: MemberIdPageProps) => {
     const profile = await currentProfile();
 
     const { serverId, memberId } = await params;

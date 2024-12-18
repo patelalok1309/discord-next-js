@@ -59,7 +59,6 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                     inputBox.focus();
                 }, 0);
             }
-            console.log(inputBox);
         }
     };
 

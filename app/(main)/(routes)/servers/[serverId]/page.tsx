@@ -9,8 +9,6 @@ interface serverIdPageProps {
 
 const ServerIdPage = async ({ params }: serverIdPageProps) => {
 
-    console.log("welcome to serverIdPage")
-
     const profile = await currentProfile();
     const { serverId } = await params;
 

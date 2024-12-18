@@ -14,8 +14,6 @@ export async function PATCH(
         }
         const serverId = (await params).serverId;
 
-        console.log(serverId);
-
         if (!serverId) {
             return new NextResponse("Server id is missing", { status: 400 });
         }

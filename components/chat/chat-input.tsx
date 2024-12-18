@@ -8,7 +8,7 @@ import qs from "query-string";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus, SendHorizonal } from "lucide-react";
+import { Plus, Smile } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
 import EmojiPicker from "../emoji-picker";
 import { useRouter } from "next/navigation";
@@ -77,7 +77,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                                     </button>
                                     <Input
                                         disabled={isLoading}
-                                        className="px-14 pr-24 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                                        className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                                         placeholder={`Message ${
                                             type === "conversation"
                                                 ? name
@@ -86,15 +86,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                                         {...field}
                                     />
 
-                                    <div className="absolute top-7 right-8 flex items-center space-x-4">
-                                        {form.getValues("content") && (
-                                            <button
-                                                type="submit"
-                                                className="flex justify-center items-center"
-                                            >
-                                                <SendHorizonal className="w-6 h-6 text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
-                                            </button>
-                                        )}
+                                    <div className="absolute top-7 right-8">
                                         <EmojiPicker
                                             onChange={(emoji: string) =>
                                                 field.onChange(

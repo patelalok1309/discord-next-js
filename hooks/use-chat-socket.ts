@@ -28,7 +28,9 @@ export const useChatSocket = ({
         pusherClient.subscribe(channelId);
 
         const newMessageHandler = (message: MessageWithMemberWithProfile) => {
+            console.log("new message use-chat-socket", message);
             queryClient.setQueryData([queryKey], (oldData: any) => {
+                console.log("oldData", oldData);
                 if (!oldData || !oldData.pages || oldData.pages.length === 0) {
                     return {
                         pages: [

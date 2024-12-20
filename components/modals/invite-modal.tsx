@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Check, Copy, RefreshCw } from "lucide-react";
 import { useState } from "react";
+import QRCodeGenerator from "../qr-code-generator";
 
 export const InviteModal = () => {
     const { onOpen, isOpen, onClose, type, data } = useModal();
@@ -66,6 +67,10 @@ export const InviteModal = () => {
                     <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                         Server invite link
                     </Label>
+
+                    <div className="flex justify-center items-center my-4 shadow-md w-fit mx-auto p-4 rounded-md bg-zinc-300/50">
+                        <QRCodeGenerator link={inviteUrl} />
+                    </div>
 
                     <div className="flex items-center mt-2 gap-x-2">
                         <Input

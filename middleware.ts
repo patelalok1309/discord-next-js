@@ -10,6 +10,7 @@ const isPublicRoute = createRouteMatcher([
     "/sign-in(.*)",
     "/sign-up(.*)",
     "/api/uploadthing",
+    "/api/keepalive",
 ]);
 
 export const config = {

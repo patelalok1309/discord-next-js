@@ -11,7 +11,7 @@ interface ChatHeaderProps {
 
 const ChatHeader = ({ name, serverId, type, imageUrl }: ChatHeaderProps) => {
     return (
-        <div className="text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2">
+        <div className="text-md font-semibold px-4 flex items-center h-14 bg-chat-bg/70 backdrop-blur-[12px] border-b border-divider/30 sticky top-0 z-10 w-full transition duration-200">
             <MobileToggle serverId={serverId} />
             {type === "channel" && (
                 <Hash className="w-5 h-5 text-zinc-500 dark:text-zinc-400 mr-2" />
@@ -19,10 +19,11 @@ const ChatHeader = ({ name, serverId, type, imageUrl }: ChatHeaderProps) => {
             {type === "conversation" && (
                 <UserAvatar
                     src={imageUrl}
-                    className="h-8 w-8 md:h-8 md:w-8 mr-2"
+                    name={name}
+                    className="h-8 w-8 mr-2"
                 />
             )}
-            <p className="font-semibold text-md text-black dark:text-white">
+            <p className="font-semibold text-md text-zinc-900 dark:text-zinc-100">
                 {name}
             </p>
         </div>

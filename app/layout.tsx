@@ -13,8 +13,8 @@ const font = Open_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "Discord Nextjs",
-    description: "A Next.js application demonstrating Discord-like features",
+    title: "Chatheaven",
+    description: "A Next.js application demonstrating Chatheaven chat features",
 };
 
 export default function RootLayout({
@@ -26,13 +26,13 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body
-                    className={cn(font.className, "bg-white dark:bg-[#313338]")}
+                    className={cn(font.className, "bg-background text-foreground")}
                 >
                     <ThemeProvider
                         attribute="class"
                         defaultTheme="system"
                         enableSystem={true}
-                        storageKey="discord-theme"
+                        storageKey="chatheaven-theme"
                     >
                         <ModalProvider />
                         <QueryProvider>{children}</QueryProvider>

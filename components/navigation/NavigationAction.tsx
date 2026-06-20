@@ -13,9 +13,9 @@ const NavigationAction = () => {
                 <button className="group">
                     <div 
                     onClick={() => onOpen("createServer")}
-                    className="flex mx-3 h-[48px] w-[48px] rounded-full group-hover:rounded-lg transition-all overflow-hidden items-center justify-center bg-background dark:bg-neutral-700 group-hover:bg-emerald-500">
+                    className="flex mx-3 h-[48px] w-[48px] rounded-full transition-all duration-200 overflow-hidden items-center justify-center bg-background dark:bg-zinc-800 group-hover:scale-105 group-hover:bg-primary group-hover:shadow-glow text-zinc-500 group-hover:text-white border border-transparent">
                         <Plus
-                            className="group-hover:text-white transition text-emerald-500"
+                            className="transition"
                             size={25}
                         />
                     </div>

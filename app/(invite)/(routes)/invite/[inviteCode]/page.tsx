@@ -16,7 +16,7 @@ const InviteCodePage = async ({ params } : any ) => {
     }
 
     if (!params.inviteCode) {
-        return redirect("/");
+        return redirect("/setup");
     }
 
     const existingServer = await db.server.findFirst({

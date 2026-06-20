@@ -33,20 +33,24 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
         <button
             onClick={onClick}
             className={cn(
-                "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
+                "group px-2 py-1.5 rounded-[10px] flex items-center gap-x-3 w-full hover:bg-channel-hover transition duration-200 ease-in-out mb-1",
                 params?.memberId === member.id &&
-                    "bg-zinc-700/20 , dark:bg-zinc-700"
+                    "bg-channel-selected text-primary dark:text-primary-soft shadow-sm"
             )}
         >
-            <UserAvatar
-                src={member.profile.imageUrl}
-                className="h-8 w-8 md:h-8 md:w-8"
-            />
+            <div className="relative flex-shrink-0">
+                <UserAvatar
+                    src={member.profile.imageUrl}
+                    name={member.profile.name}
+                    className="h-8 w-8"
+                />
+                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-[2px] ring-sidebar-secondary bg-accent" />
+            </div>
             <p
                 className={cn(
-                    "font-semibold text-sm text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300 transition",
+                    "font-medium text-xs text-zinc-500 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200 transition duration-200",
                     params?.memberId === member.id &&
-                        "text-primary dark:text-zinc-200 dark:group-hover:text-white"
+                        "text-primary dark:text-primary-soft font-semibold"
                 )}
             >
                 {member.profile.name}

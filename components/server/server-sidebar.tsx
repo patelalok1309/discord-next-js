@@ -35,7 +35,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     const profile = await currentProfile();
 
     if (!profile) {
-        return redirect("/");
+        return redirect("/setup");
     }
 
     const server = await db.server.findUnique({
@@ -76,7 +76,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     );
 
     if (!server) {
-        return redirect("/");
+        return redirect("/setup");
     }
 
     const role = server.members.find(
@@ -84,7 +84,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
     )?.role;
 
     return (
-        <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
+        <div className="flex flex-col h-full text-primary w-full bg-sidebar-secondary border-r border-divider/25">
             <ServerHeader server={server} role={role} />
 
             <ScrollArea className="flex-1 px-3">

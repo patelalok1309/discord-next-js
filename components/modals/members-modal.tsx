@@ -95,28 +95,28 @@ export const MembersModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black overflow-hidden">
+            <DialogContent className="bg-popover text-popover-foreground overflow-hidden border border-border/40 shadow-lg">
                 <DialogHeader className="pt-8 px-8">
-                    <DialogTitle className="text-2xl text-center font-bold ">
+                    <DialogTitle className="text-2xl text-center font-bold text-zinc-900 dark:text-zinc-100">
                         Manage members
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500">
+                    <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
                         {server?.members?.length} members
                     </DialogDescription>
                 </DialogHeader>
-                <ScrollArea className="mt-8 max-h-48 min-h-32 pr-6">
+                <ScrollArea className="mt-8 max-h-60 min-h-32 pr-6">
                     {server?.members?.map((member) => (
                         <div
-                            className="flex items-center gap-x-2 mb-6"
+                            className="flex items-center gap-x-3 mb-6"
                             key={member.id}
                         >
-                            <UserAvatar src={member.profile.imageUrl} />
+                            <UserAvatar src={member.profile.imageUrl} name={member.profile.name} />
                             <div className="flex flex-col gap-y-1">
-                                <div className="text-xs font-semibold flex items-center gap-x-1">
+                                <div className="text-xs font-semibold flex items-center gap-x-1 text-zinc-900 dark:text-zinc-100">
                                     {member.profile.name}
                                     {roleIconMap[member.role]}
                                 </div>
-                                <p className="text-xs text-zinc-500">
+                                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                                     {member.profile.email}
                                 </p>
                             </div>

@@ -134,13 +134,13 @@ const ChatItem: React.FC<ChatItemProps> = ({
     };
 
     return (
-        <div className="relative gruop flex items-center hover:bg-black/5 p-4 transition w-full">
-            <div className="group flex gap-x-2 items-start w-full">
+        <div className="relative group flex items-center hover:bg-message-hover/30 px-4 py-3 transition duration-200 w-full border-b border-transparent hover:border-divider/10">
+            <div className="group flex gap-x-3 items-start w-full">
                 <div
                     onClick={onClick}
                     className="cursor-pointer hover:drop-shadow-md transition"
                 >
-                    <UserAvatar src={member.profile.imageUrl} />
+                    <UserAvatar src={member.profile.imageUrl} name={member.profile.name} />
                 </div>
 
                 <div className="flex flex-col w-full">
@@ -148,7 +148,7 @@ const ChatItem: React.FC<ChatItemProps> = ({
                         <div className="flex items-center">
                             <p
                                 onClick={onClick}
-                                className="font-semibold text-sm hover:underline cursor-pointer"
+                                className="font-semibold text-sm hover:underline cursor-pointer text-zinc-900 dark:text-zinc-100"
                             >
                                 {member.profile.name}
                             </p>
@@ -156,7 +156,7 @@ const ChatItem: React.FC<ChatItemProps> = ({
                                 {roleIconMap[member.role]}
                             </ActionTooltip>
                         </div>
-                        <span className="text-xs text-zinc-500 dark:text-zinc-400 ">
+                        <span className="text-[10px] text-zinc-400 dark:text-zinc-500">
                             {timestamp}
                         </span>
                     </div>
@@ -165,7 +165,7 @@ const ChatItem: React.FC<ChatItemProps> = ({
                             href={fileUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative aspect-square rounded-md mt-2 overflow-hidden border flex items-center bg-secondary h-48 w-48"
+                            className="relative aspect-square rounded-lg mt-2 overflow-hidden border border-border/40 flex items-center bg-secondary h-48 w-48 transition hover:opacity-90 shadow-sm"
                         >
                             <Image
                                 src={fileUrl}
@@ -178,7 +178,7 @@ const ChatItem: React.FC<ChatItemProps> = ({
                     )}
 
                     {isPDF && (
-                        <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+                        <div className="relative flex items-center p-3 mt-2 rounded-lg bg-background/30 border border-border/40">
                             <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
                             <a
                                 href={fileUrl}
@@ -194,25 +194,32 @@ const ChatItem: React.FC<ChatItemProps> = ({
                     )}
 
                     {!fileUrl && !isEditing && (
-                        <p
-                            className={cn(
-                                "text-sm text-zinc-600 dark:text-zinc-300",
-                                deleted && "italic text-zinc-500 text-xs mt-1"
-                            )}
-                        >
-                            {content}
-                            {isUpdated && !deleted && (
-                                <span className="text-[10px] mx-2 text-zinc-500">
-                                    (edited)
-                                </span>
-                            )}
-                        </p>
+                        <div className={cn(
+                            "rounded-[16px] py-2.5 px-4 mt-1.5 self-start text-zinc-800 dark:text-zinc-200 max-w-[85%] border shadow-sm",
+                            isOwner 
+                                ? "bg-primary/10 dark:bg-primary/15 border-primary/20" 
+                                : "bg-black/5 dark:bg-white/5 border-border/10"
+                        )}>
+                            <p
+                                className={cn(
+                                    "text-sm leading-relaxed",
+                                    deleted && "italic text-zinc-500 text-xs mt-1"
+                                )}
+                            >
+                                {content}
+                                {isUpdated && !deleted && (
+                                    <span className="text-[10px] mx-2 text-zinc-500">
+                                        (edited)
+                                    </span>
+                                )}
+                            </p>
+                        </div>
                     )}
                     {!fileUrl && isEditing && (
                         <Form {...form}>
                             <form
                                 onSubmit={form.handleSubmit(onSubmit)}
-                                className="flex items-center w-full gap-x-1 pt-2"
+                                className="flex items-center w-full gap-x-2 pt-2"
                             >
                                 <FormField
                                     control={form.control}
@@ -223,7 +230,7 @@ const ChatItem: React.FC<ChatItemProps> = ({
                                                 <div className="relative w-full">
                                                     <Input
                                                         disabled={isLoading}
-                                                        className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                                                        className="px-3 py-2 bg-input border border-border/50 text-zinc-800 dark:text-zinc-100 rounded-md focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary transition"
                                                         placeholder="Edit your message"
                                                         {...field}
                                                     />
@@ -241,24 +248,24 @@ const ChatItem: React.FC<ChatItemProps> = ({
                                 </Button>
                             </form>
                             <span className="text-[10px] mt-1 text-zinc-400">
-                                Please Esc to cancel, Enter to save
+                                Press Esc to cancel, Enter to save
                             </span>
                         </Form>
                     )}
                 </div>
                 {canDeleteMessage && (
-                    <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                    <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1.5 -top-3 right-5 bg-white dark:bg-zinc-800 border border-border/50 rounded-md shadow-md">
                         {canEditMessage && (
                             <ActionTooltip label="Edit">
                                 <Edit
                                     onClick={() => setIsEditing(true)}
-                                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 transition"
+                                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-zinc-100 transition"
                                 />
                             </ActionTooltip>
                         )}
                         <ActionTooltip label="Delete">
                             <Trash
-                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-300 transition"
+                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-zinc-100 transition"
                                 onClick={() =>
                                     onOpen("deleteMessage", {
                                         apiUrl: `${socketUrl}/${id}`,

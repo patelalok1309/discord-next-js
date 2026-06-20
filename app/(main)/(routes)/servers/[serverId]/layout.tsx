@@ -30,7 +30,7 @@ const ServerIdLayout = async ({
     });
 
     if (!server) {
-        redirect("/");
+        redirect("/setup");
     }
 
     return (

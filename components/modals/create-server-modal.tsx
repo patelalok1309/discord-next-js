@@ -70,12 +70,12 @@ export const CreateServerModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent className="bg-popover text-popover-foreground p-0 overflow-hidden border border-border/40 shadow-lg">
                 <DialogHeader className="pt-8 px-8">
-                    <DialogTitle className="text-2xl text-center font-bold ">
+                    <DialogTitle className="text-2xl text-center font-bold text-zinc-900 dark:text-zinc-100">
                         Customize your profile
                     </DialogTitle>
-                    <DialogDescription className="text-center text-zinc-500">
+                    <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
                         Give your server a personality with a name and an image.
                         You can always change it later.
                     </DialogDescription>
@@ -110,13 +110,13 @@ export const CreateServerModal = () => {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="uppercase font-bold text-zinc-500 text-xs dark:text-secondary/70">
+                                        <FormLabel className="uppercase font-bold text-zinc-500 text-xs dark:text-zinc-400">
                                             Server Name
                                         </FormLabel>
                                         <FormControl>
                                             <Input
                                                 disabled={isLoading}
-                                                className="bg-zinc-300/50 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-black"
+                                                className="bg-zinc-100 dark:bg-zinc-900 border border-border/50 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-800 dark:text-zinc-100 focus-visible:border-primary"
                                                 placeholder="Enter server name"
                                                 {...field}
                                             />
@@ -126,7 +126,7 @@ export const CreateServerModal = () => {
                                 )}
                             />
 
-                            <DialogFooter className="bg-gray-100 px-6 py-4">
+                            <DialogFooter className="bg-zinc-100 dark:bg-black/20 px-6 py-4 -mx-6">
                                 <Button
                                     disabled={isLoading}
                                     variant={"primary"}

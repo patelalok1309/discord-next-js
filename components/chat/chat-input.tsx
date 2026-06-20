@@ -71,16 +71,16 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
-                                <div className="relative p-4 pb-4">
+                                <div className="relative p-4 pb-6">
 
                                     {/* Chat Attachments Button */}
                                     <ActionTooltip
-                                        side="right"
+                                        side="top"
                                         align="center"
                                         label="Add an attachment"
                                     >
                                         <button
-                                            className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
+                                            className="absolute left-8 top-[42px] -translate-y-1/2 h-[26px] w-[26px] bg-zinc-400 hover:bg-primary dark:bg-zinc-500 dark:hover:bg-primary transition rounded-full p-1 flex items-center justify-center z-10"
                                             type="button"
                                             onClick={() =>
                                                 onOpen("messageFile", {
@@ -89,7 +89,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                                                 })
                                             }
                                         >
-                                            <Plus className="text-white dark:text-[#313338]" />
+                                            <Plus className="text-white h-4 w-4" />
                                         </button>
                                     </ActionTooltip>
 
@@ -97,7 +97,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                                     <Input
                                         id="message-input-box"
                                         disabled={isLoading}
-                                        className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                                        className="h-[52px] pl-14 pr-24 bg-input border border-border/40 text-zinc-800 dark:text-zinc-100 placeholder-zinc-500 dark:placeholder-zinc-400 rounded-lg transition duration-200 w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-primary focus-visible:shadow-[0_0_0_4px_rgba(109,94,245,0.15)]"
                                         placeholder={`Message ${
                                             type === "conversation"
                                                 ? name
@@ -106,20 +106,20 @@ const ChatInput: React.FC<ChatInputProps> = ({ apiUrl, query, name, type }) => {
                                         {...field}
                                     />
 
-                                    {/* Send Button */} 
-                                    <div className="absolute top-7 right-8 flex items-center space-x-4">
+                                    {/* Send/Emoji Group */} 
+                                    <div className="absolute right-8 top-[42px] -translate-y-1/2 flex items-center space-x-3 z-10">
                                         {form.getValues("content")?.length >
                                             0 && (
                                                 <ActionTooltip
                                                 side="top"
                                                 align="center"
-                                                label="Add an attachment"
+                                                label="Send message"
                                             >
                                                 <button
                                                     type="submit"
-                                                    className="flex justify-center items-center"
+                                                    className="flex justify-center items-center h-8 w-8 rounded-full bg-primary hover:bg-primary-hover text-white transition shadow-sm"
                                                 >
-                                                    <SendHorizonal className="w-6 h-6 text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
+                                                    <SendHorizonal className="w-4 h-4" />
                                                 </button>
                                             </ActionTooltip>
                                         )}

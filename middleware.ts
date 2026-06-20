@@ -7,10 +7,12 @@ export default clerkMiddleware(async (auth, request) => {
 });
 
 const isPublicRoute = createRouteMatcher([
+    "/",
     "/sign-in(.*)",
     "/sign-up(.*)",
     "/api/uploadthing",
     "/api/keepalive",
+    "/home",
 ]);
 
 export const config = {

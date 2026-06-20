@@ -57,25 +57,25 @@ export const InviteModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={onClose}>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent className="bg-popover text-popover-foreground p-0 overflow-hidden border border-border/40 shadow-lg">
                 <DialogHeader className="pt-8 px-8">
-                    <DialogTitle className="text-2xl text-center font-bold ">
+                    <DialogTitle className="text-2xl text-center font-bold text-zinc-900 dark:text-zinc-100">
                         Invite Friends
                     </DialogTitle>
                 </DialogHeader>
                 <div className="p-6">
-                    <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                    <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-zinc-400">
                         Server invite link
                     </Label>
 
-                    <div className="flex justify-center items-center my-4 shadow-md w-fit mx-auto p-4 rounded-md bg-zinc-300/50">
+                    <div className="flex justify-center items-center my-4 shadow-md w-fit mx-auto p-4 rounded-lg bg-white dark:bg-zinc-900 border border-border/40">
                         <QRCodeGenerator link={inviteUrl} />
                     </div>
 
                     <div className="flex items-center mt-2 gap-x-2">
                         <Input
                             disabled={isLoading}
-                            className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                            className="bg-zinc-100 dark:bg-zinc-900 border border-border/50 focus-visible:ring-0 text-zinc-800 dark:text-zinc-100 focus-visible:ring-offset-0 focus-visible:border-primary"
                             value={inviteUrl}
                             onChange={() => {}}
                         />
@@ -95,7 +95,7 @@ export const InviteModal = () => {
                     <Button
                         disabled={isLoading}
                         variant={"link"}
-                        className="text-xs text-zinc-500 mt-4"
+                        className="text-xs text-zinc-500 dark:text-zinc-400 mt-4"
                         onClick={onNew}
                     >
                         Generate a new link

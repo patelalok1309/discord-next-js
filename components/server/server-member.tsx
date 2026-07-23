@@ -5,6 +5,7 @@ import { Member, MemberRole, Profile, Server } from "@prisma/client";
 import { ShieldAlert, ShieldCheck } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import UserAvatar from "../user-avatar";
+import { useOnlineUsers } from "@/hooks/use-online-users";
 
 interface ServerMemberProps {
     member: Member & { profile: Profile };
@@ -22,8 +23,10 @@ const roleIconMap = {
 const ServerMember = ({ member, server }: ServerMemberProps) => {
     const params = useParams();
     const router = useRouter();
+    const { isOnline } = useOnlineUsers(server.id);
 
     const icon = roleIconMap[member.role];
+    const online = isOnline(member.profileId);
 
     const onClick = () => {
         router.push(`/servers/${server?.id}/conversations/${member.id}`);
@@ -44,7 +47,14 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
                     name={member.profile.name}
                     className="h-8 w-8"
                 />
-                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-[2px] ring-sidebar-secondary bg-accent" />
+                {/* Online presence dot — green = online, zinc = offline */}
+                <span
+                    className={cn(
+                        "absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-[2px] ring-sidebar-secondary transition-colors duration-300",
+                        online ? "bg-green-500" : "bg-zinc-400 dark:bg-zinc-600"
+                    )}
+                    title={online ? "Online" : "Offline"}
+                />
             </div>
             <p
                 className={cn(
@@ -55,6 +65,7 @@ const ServerMember = ({ member, server }: ServerMemberProps) => {
             >
                 {member.profile.name}
             </p>
+            {icon}
         </button>
     );
 };

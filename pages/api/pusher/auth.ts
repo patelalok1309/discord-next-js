@@ -15,7 +15,12 @@ export default async function handler(
     const socketId = await req.body.socket_id;
     const channel = await req.body.channel_name;
     const data = {
-        user_id: profile.email,
+        // user_id must match profile.id so presence member.id === profileId
+        user_id: profile.id,
+        user_info: {
+            name: profile.name,
+            imageUrl: profile.imageUrl,
+        },
     };
 
     const authResponse = pusherServer.authorizeChannel(socketId, channel, data);

@@ -65,6 +65,7 @@ const MemberIdPage = async ({ params , searchParams }: MemberIdPageProps) => {
                 name={otherMember.profile.name}
                 serverId={serverId}
                 type="conversation"
+                otherProfileId={otherMember.profileId}
             />
             {!video && (
                 <>
